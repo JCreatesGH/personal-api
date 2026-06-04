@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Josh · Portfolio</title>
+<style>
+  :root{--bg:#0b0d12;--fg:#e6edf3;--muted:#9aa4b2;--accent:#818cf8;--card:#11151c;--border:#222a36}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif;line-height:1.6}
+  .wrap{max-width:720px;margin:0 auto;padding:56px 22px}
+  h1{margin:0;font-size:2.2rem} .headline{color:var(--muted);font-size:1.1rem}
+  .now{display:inline-flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border);
+       border-radius:20px;padding:6px 14px;margin-top:16px;font-size:.9rem}
+  .dot{width:9px;height:9px;border-radius:50%;background:#22c55e}
+  h2{margin-top:44px;border-bottom:1px solid var(--border);padding-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+  .card h3{margin:0 0 4px} .muted{color:var(--muted)} .tag{display:inline-block;background:#1b2230;color:var(--accent);
+  border-radius:6px;padding:1px 8px;font-size:.78rem;margin-right:6px} a{color:var(--accent)}
+</style></head>
+<body><div class="wrap">
+  <h1 id="name">…</h1>
+  <div class="headline" id="headline"></div>
+  <div class="now" id="now"><span class="dot"></span><span>…</span></div>
+  <h2>Projects</h2><div id="projects"></div>
+  <h2>Writing</h2><div id="posts"></div>
+  <script>
+    const get = p => fetch(p).then(r=>r.json());
+    (async () => {
+      const [profile, now, projects, posts] = await Promise.all(
+        [get('/api/profile'), get('/api/now'), get('/api/projects'), get('/api/posts')]);
+      name.textContent = profile.name;
+      headline.textContent = profile.headline;
+      document.querySelector('#now span:last-child').textContent =
+        now.status==='online' ? `Now: ${now.track} · ${now.activity}` : 'Offline';
+      document.getElementById('projects').innerHTML = projects.map(p=>`
+        <div class="card"><h3>${p.name}</h3><div class="muted">${p.desc}</div></div>`).join('');
+      document.getElementById('posts').innerHTML = posts.map(p=>`
+        <div class="card"><h3>${p.title}</h3><div class="muted">${p.date} · ${p.summary}</div>
+        <div style="margin-top:8px">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`).join('');
+    })();
+  </script>
+</div></body></html>

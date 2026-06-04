@@ -1,0 +1,11 @@
+{
+  "name": "Josh",
+  "headline": "Full-stack engineer · TypeScript & Python",
+  "location": "Remote",
+  "links": { "github": "https://github.com/josh", "email": "josh202@gmail.com" },
+  "now": { "status": "online", "track": "Nightcall — Kavinsky", "activity": "Shipping side projects" },
+  "projects": [
+    { "name": "live-cursors", "desc": "Real-time multiplayer presence over WebSockets", "stars": 0 },
+    { "name": "url-shortener", "desc": "Full-stack shortener with click analytics", "stars": 0 }
+  ]
+}
