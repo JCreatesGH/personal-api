@@ -1,6 +1,6 @@
 # personal-api
 
-[![CI](https://github.com/josh/personal-api/actions/workflows/ci.yml/badge.svg)](https://github.com/josh/personal-api/actions)
+[![CI](https://github.com/JCreatesGH/personal-api/actions/workflows/ci.yml/badge.svg)](https://github.com/JCreatesGH/personal-api/actions)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
