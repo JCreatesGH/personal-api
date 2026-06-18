@@ -1,7 +1,7 @@
 # personal-api
 
 [![CI](https://github.com/JCreatesGH/personal-api/actions/workflows/ci.yml/badge.svg)](https://github.com/JCreatesGH/personal-api/actions)
-[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 Your own data API — now-playing, projects, and blog posts as clean JSON — plus a thin portfolio frontend that consumes it. Content lives as markdown + JSON on disk, so publishing a post is just adding a file.
@@ -22,8 +22,12 @@ uvicorn app.main:app --reload      # http://localhost:8000  (portfolio + /docs)
 | `GET /api/profile` | name, headline, links |
 | `GET /api/now` | now-playing / current activity (wire to Spotify/Last.fm in prod) |
 | `GET /api/projects` | project list |
-| `GET /api/posts` | post metadata (title, date, summary, tags) |
+| `GET /api/posts` | post metadata (title, date, summary, tags); `?tag=` to filter |
 | `GET /api/posts/{slug}` | full post incl. body |
+| `GET /api/tags` | every tag with its post count, most-used first |
+| `GET /feed.xml` | an **RSS 2.0** feed of all posts |
+
+The single-post route reads exactly one file and rejects unsafe slugs (no path traversal). `/feed.xml` XML-escapes every field, so titles with `&` / `<` can't break the feed.
 
 ## Add a blog post
 
@@ -48,7 +52,7 @@ The content layer (`app/content.py`) is a set of **pure functions over a directo
 ## Development
 
 ```bash
-python -m pytest -q   # 9 tests (content parsing + API endpoints)
+python -m pytest -q   # 19 tests (content parsing, tag/RSS helpers, traversal safety + API endpoints)
 ```
 
 ## License
